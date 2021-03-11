@@ -10,8 +10,6 @@ import SwiftUI
 import Client
 
 func startKoin() {
-    LoggerKt.kermit.d(withMessage: {"starting koin"})
-
     let userDefaults = UserDefaults(suiteName: "application_user_defaults")!
 
     _koin = KoinIOSKt.doInitIOS(

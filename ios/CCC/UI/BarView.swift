@@ -70,6 +70,8 @@ struct BarView: View {
         case is BarEffect.ChangeBase:
             onBaseChange((effect as! BarEffect.ChangeBase).newBase)
             isBarShown = false
+        case is BarEffect.OpenCurrencies:
+            navigationStack.push(CurrenciesView(onBaseChange: onBaseChange))
         default:
             LoggerKt.kermit.d(withMessage: {"unknown effect"})
         }
