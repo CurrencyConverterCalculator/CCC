@@ -9,5 +9,6 @@ target 'CCC' do
   pod 'client', :path => '../client/client.podspec'
   pod 'SwiftMessages', :inhibit_warnings => true
   pod 'NavigationStack'
+  pod 'Loaf'
 
 end

@@ -10,27 +10,6 @@ import SwiftMessages
 import SwiftUI
 import Client
 
-func showToast(text: String) {
-
-    let view = MessageView.viewFromNib(layout: .cardView)
-    view.configureTheme(
-        backgroundColor: MR.colors().background_weak.get(),
-        foregroundColor: MR.colors().text.get(),
-        iconImage: MR.images().ic_app_logo.get()
-            .resized(to: CGSize(width: 64, height: 64)),
-        iconText: nil
-    )
-    view.configureDropShadow()
-    view.configureContent(title: "", body: text)
-    view.button?.isHidden = true
-
-    var config = SwiftMessages.defaultConfig
-    config.presentationStyle = .bottom
-    config.presentationContext = .window(windowLevel: UIWindow.Level.normal)
-
-    SwiftMessages.show(config: config, view: view)
-}
-
 func showSnackBar(text: String, butonText: String, action:@escaping () -> Void) {
 
     let view = MessageView.viewFromNib(layout: .cardView)

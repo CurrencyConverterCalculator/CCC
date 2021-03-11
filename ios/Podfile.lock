@@ -1,5 +1,6 @@
 PODS:
-  - client (2.2.579)
+  - client (2.2.610)
+  - Loaf (0.7.0)
   - NavigationStack (1.0.2)
   - SwiftMessages (9.0.0):
     - SwiftMessages/App (= 9.0.0)
@@ -7,11 +8,13 @@ PODS:
 
 DEPENDENCIES:
   - client (from `../client/client.podspec`)
+  - Loaf
   - NavigationStack
   - SwiftMessages
 
 SPEC REPOS:
   trunk:
+    - Loaf
     - NavigationStack
     - SwiftMessages
 
@@ -20,10 +23,11 @@ EXTERNAL SOURCES:
     :path: "../client/client.podspec"
 
 SPEC CHECKSUMS:
-  client: 217333e107dcf021e236ec9f1339d5796669704e
+  client: c7287c22b84cc7918f06634c83521e773b529256
+  Loaf: d69937cd00649f3fa260beb8b7aef0a1feb861ef
   NavigationStack: bb6c4f3d1b9fe92f1f6d47370f73c9233ad56272
   SwiftMessages: 55274ca3a239062398603008ed81924cfd1fe798
 
-PODFILE CHECKSUM: 4202d028804551571b2a2e217a9c31cff5847153
+PODFILE CHECKSUM: 6612665730a61a733064d5ae2a68ba956e4ccd16
 
 COCOAPODS: 1.10.1
