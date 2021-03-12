@@ -60,6 +60,9 @@ struct CalculatorView: View {
                                                 IOSExtensionsKt.getFormatted(item.rate)
                                             )
                                         )
+                                    },
+                                    onItemLongClick: { item in
+                                        observable.event.onItemLongClick(currency: item)
                                     }
                                 )
                             }
@@ -91,10 +94,8 @@ struct CalculatorView: View {
     private func onEffect(effect: CalculatorEffect) {
         LoggerKt.kermit.d(withMessage: {effect.description})
         switch effect {
-        case is CalculatorEffect.OpenBar:
-            isBarShown = true
-        case is CalculatorEffect.MaximumInput:
-            showToast(text: MR.strings().max_input.get())
+        case is CalculatorEffect.Error:
+            showToast(text: MR.strings().error_text_unknown.get())
         case is CalculatorEffect.FewCurrency:
             showSnackBar(
                 text: MR.strings().choose_at_least_two_currency.get(),
@@ -103,8 +104,20 @@ struct CalculatorView: View {
                     navigationStack.push(CurrenciesView(onBaseChange: { observable.event.onBaseChange(base: $0) }))
                 }
             )
+        case is CalculatorEffect.MaximumInput:
+            showToast(text: MR.strings().max_input.get())
+        case is CalculatorEffect.OpenBar:
+            isBarShown = true
+        case is CalculatorEffect.OpenSettings:
+            navigationStack.push(SettingsView(onBaseChange: { observable.event.onBaseChange(base: $0) }))
+        // swiftlint:disable force_cast
+        case is CalculatorEffect.ShowRate:
+            showSnackBar(
+                text: (effect as! CalculatorEffect.ShowRate).text,
+                iconImage: (effect as! CalculatorEffect.ShowRate).name.getImage()
+            )
         default:
-            LoggerKt.kermit.d(withMessage: {"unknown effect"})
+            LoggerKt.kermit.d(withMessage: {"CalculatorView unknown effect"})
         }
     }
 }
@@ -211,6 +224,7 @@ struct CalculatorItemView: View {
 
     var item: Currency
     var onItemClick: (Currency) -> Void
+    var onItemLongClick: (Currency) -> Void
 
     var body: some View {
         HStack {
@@ -227,5 +241,6 @@ struct CalculatorItemView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture { onItemClick(item) }
+        .onLongPressGesture { onItemLongClick(item) }
     }
 }

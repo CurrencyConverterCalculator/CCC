@@ -95,7 +95,7 @@ struct SettingsView: View {
         case is SettingsEffect.OpenCurrencies:
             self.navigationStack.push(CurrenciesView(onBaseChange: onBaseChange))
         default:
-            LoggerKt.kermit.d(withMessage: {"unknown effect"})
+            LoggerKt.kermit.d(withMessage: {"SettingsView unknown effect"})
         }
     }
 }

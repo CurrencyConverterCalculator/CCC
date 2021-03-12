@@ -10,13 +10,18 @@ import SwiftMessages
 import SwiftUI
 import Client
 
-func showSnackBar(text: String, butonText: String, action:@escaping () -> Void) {
+func showSnackBar(
+    text: String,
+    butonText: String? = nil,
+    action: (() -> Void)? = nil,
+    iconImage: UIImage = MR.images().ic_app_logo.get()
+) {
 
     let view = MessageView.viewFromNib(layout: .cardView)
     view.configureTheme(
         backgroundColor: MR.colors().background.get(),
         foregroundColor: MR.colors().text.get(),
-        iconImage: MR.images().ic_app_logo.get().resized(
+        iconImage: iconImage.resized(
             to: CGSize(width: 64, height: 64)
         )
     )
@@ -26,23 +31,26 @@ func showSnackBar(text: String, butonText: String, action:@escaping () -> Void) 
     view.configureContent(
         title: "",
         body: text,
-        iconImage: MR.images().ic_app_logo.get()
-            .resized(to: CGSize(width: 64, height: 64)),
+        iconImage: iconImage.resized(to: CGSize(width: 64, height: 64)),
         iconText: nil,
         buttonImage: nil,
         buttonTitle: butonText,
         buttonTapHandler: { _ in
-            action()
-    })
+            action?()
+        })
 
-    view.button?.contentEdgeInsets = UIEdgeInsets(
-        top: 10.0,
-        left: 10.0,
-        bottom: 10.0,
-        right: 10.0
-    )
+    if butonText != nil {
+        view.button?.contentEdgeInsets = UIEdgeInsets(
+            top: 10.0,
+            left: 10.0,
+            bottom: 10.0,
+            right: 10.0
+        )
 
-    view.button?.backgroundColor = MR.colors().primary.get()
+        view.button?.backgroundColor = MR.colors().primary.get()
+    } else {
+        view.button?.isHidden = true
+    }
 
     var config = SwiftMessages.defaultConfig
     config.presentationStyle = .bottom

@@ -77,7 +77,7 @@ struct CurrenciesView: View {
         case is CurrenciesEffect.ChangeBase:
             onBaseChange((effect as! CurrenciesEffect.ChangeBase).newBase)
         default:
-            LoggerKt.kermit.d(withMessage: {"unknown effect"})
+            LoggerKt.kermit.d(withMessage: {"CurrenciesView unknown effect"})
         }
     }
 }
