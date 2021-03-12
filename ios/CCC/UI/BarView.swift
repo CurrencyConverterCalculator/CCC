@@ -65,6 +65,7 @@ struct BarView: View {
     }
 
     private func onEffect(effect: BarEffect) {
+        LoggerKt.kermit.d(withMessage: {effect.description})
         switch effect {
         // swiftlint:disable force_cast
         case is BarEffect.ChangeBase:

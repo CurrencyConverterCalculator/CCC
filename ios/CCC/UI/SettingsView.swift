@@ -27,7 +27,7 @@ struct SettingsView: View {
 
             VStack {
 
-                SettingsToolbarView()
+                SettingsToolbarView(backEvent: { observable.event.onBackClick() })
 
                 Form {
                     SettingsItemView(
@@ -91,24 +91,30 @@ struct SettingsView: View {
     }
 
     private func onEffect(effect: SettingsEffect) {
+        LoggerKt.kermit.d(withMessage: {effect.description})
         switch effect {
+        case is SettingsEffect.Back:
+            navigationStack.pop()
         case is SettingsEffect.OpenCurrencies:
             self.navigationStack.push(CurrenciesView(onBaseChange: onBaseChange))
+        case is SettingsEffect.FeedBack:
+            EmailHelper().sendFeedback()
         default:
             LoggerKt.kermit.d(withMessage: {"SettingsView unknown effect"})
         }
     }
+
 }
 
 struct SettingsToolbarView: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject private var navigationStack: NavigationStack
+    var backEvent: () -> Void
 
     var body: some View {
         HStack {
 
             Button(
-                action: { navigationStack.pop() },
+                action: { backEvent() },
                 label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.large)

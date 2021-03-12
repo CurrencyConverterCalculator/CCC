@@ -53,7 +53,7 @@ struct MainView: View {
         LoggerKt.kermit.d(withMessage: {effect.description})
         switch effect {
         default:
-            LoggerKt.kermit.d(withMessage: {"unknown effect"})
+            LoggerKt.kermit.d(withMessage: {"MainView unknown effect"})
         }
     }
 }
